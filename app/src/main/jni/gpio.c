@@ -1,10 +1,17 @@
 #include <string.h>
 #include <jni.h>
+#include "gpio.h"
+static jint var;
 
+jint
+JNI_OnLoad(JavaVM* pVM, void* reserved) {
+
+    var = 0;
+    return JNI_VERSION_1_6;
+}
 
 jstring
-Java_com_nklabs_ypearson_gpiotoggle_MainActivity_stringFromJNI( JNIEnv* env,
-                                                                jobject thiz )
+Java_com_nklabs_ypearson_gpiotoggle_MainActivity_stringFromJNI(JNIEnv* pEnv, jobject pThis )
 {
 #if defined(__arm__)
     #if defined(__ARM_ARCH_7A__)
@@ -38,5 +45,18 @@ Java_com_nklabs_ypearson_gpiotoggle_MainActivity_stringFromJNI( JNIEnv* env,
     #define ABI "unknown"
 #endif
 
-    return (*env)->NewStringUTF(env, "String from C code ! " ABI ".");
+    return (*pEnv)->NewStringUTF(pEnv, ABI);
+}
+
+void Java_com_nklabs_ypearson_gpiotoggle_MainActivity_setgpio(JNIEnv* pEnv, jint num)
+{
+    var = num;
+
+
+}
+
+jint Java_com_nklabs_ypearson_gpiotoggle_MainActivity_getgpio(JNIEnv* pEnv, jint num)
+{
+    return var;
+
 }

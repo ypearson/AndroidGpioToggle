@@ -11,7 +11,8 @@ public class MainActivity extends AppCompatActivity {
 
     static {System.loadLibrary("gpio");}
     public native String  stringFromJNI();
-    public native String  unimplementedStringFromJNI();
+    public native void setgpio(int gpioNum);
+    public native int getgpio(int gpioNum);
 
 
     private static final String TAG = "nklabs";
@@ -23,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
         TextView textView1 = (TextView) findViewById(R.id.textView1);
         textView1.setText("GPIO test app launched.");
         textView1.setText(stringFromJNI());
+        setgpio(1);
+        getgpio(1);
     }
 
     @Override
