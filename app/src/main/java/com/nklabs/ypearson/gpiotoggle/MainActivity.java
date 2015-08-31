@@ -12,8 +12,14 @@ public class MainActivity extends AppCompatActivity {
 
     static {System.loadLibrary("gpio");}
     public native void initgpio();
+    public native String readgpio(String path);
+    public native void writegpio(String path, String val);
     public native void setgpio(int gpioNum);
     public native int getgpio(int gpioNum);
+
+    private static final String GPIO_FILE = "/sdcard/gpio.dev";
+    private static final String GPIO_HIGH = "HIGH";
+    private static final String GPIO_LOW = "LOW";
 
     TextView textView1;
 
@@ -24,10 +30,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Log.d(TAG, "OnCreate");
         textView1 = (TextView) findViewById(R.id.textView1);
-        textView1.setText("GPIO test app launched.");
         initgpio();
-        setgpio( 105 );
+        setgpio(105);
         textView1.setText(Integer.toString(getgpio(1)));
+        writegpio(GPIO_FILE, GPIO_LOW);
+        textView1.setText(readgpio(GPIO_FILE));
+
 
     }
 
