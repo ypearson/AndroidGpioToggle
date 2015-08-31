@@ -5,15 +5,17 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
     static {System.loadLibrary("gpio");}
-    public native String  stringFromJNI();
+    public native void initgpio();
     public native void setgpio(int gpioNum);
     public native int getgpio(int gpioNum);
 
+    TextView textView1;
 
     private static final String TAG = "nklabs";
     @Override
@@ -21,17 +23,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Log.d(TAG, "OnCreate");
-        TextView textView1 = (TextView) findViewById(R.id.textView1);
+        textView1 = (TextView) findViewById(R.id.textView1);
         textView1.setText("GPIO test app launched.");
-        textView1.setText(stringFromJNI());
-        setgpio(1);
-        getgpio(1);
+        initgpio();
+        setgpio( 105 );
+        textView1.setText(Integer.toString(getgpio(1)));
+
     }
 
     @Override
     protected void onStart() {
         super.onStart();
         Log.d(TAG, "onStart");
+
     }
 
     @Override

@@ -4,7 +4,6 @@
 
 #ifndef GPIOTOGGLE_GPIO_H
 #define GPIOTOGGLE_GPIO_H
-
 typedef struct {
 
     jchar gpio;
