@@ -49,8 +49,6 @@ void Java_com_nklabs_ypearson_gpiotoggle_MainActivity_writegpio(JNIEnv* pEnv, jo
     }
 }
 
-
-
 void Java_com_nklabs_ypearson_gpiotoggle_MainActivity_setgpio(JNIEnv* pEnv, jobject pThis, jint num)
 {
     var = num;
